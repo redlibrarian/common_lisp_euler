@@ -8,11 +8,8 @@
      (+ (fib (- x 1)) (fib (- x 2)))))
 
 (defun fib-series ()
-  (let ((i 1) (fibs '()))
-    (loop until (> (fib i) 4000000)
-          do (progn
-             (incf i)
-             (push (fib i) fibs)))
-    fibs))
+  (do ((n 0 (+ 1 n)) (fibs '()))
+        ((> (fib n) 4000000) fibs)
+        (push (fib n) fibs)))
 
 (reduce #'+ (remove-if-not #'evenp (fib-series)))
