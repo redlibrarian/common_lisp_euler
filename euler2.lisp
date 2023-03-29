@@ -8,11 +8,11 @@
      (+ (fib (- x 1)) (fib (- x 2)))))
 
 (defun fib-series ()
-  "Calculates the fibonacci series up to and including the value 4,000,000"
-  (loop for i from 1 to 100 ; no way to do endless loop-with-index that I can find; 101 fibonacci numbers should exceed 4,000,000
-        while (<= (fib i) 4000000)  ; stop when you hit 4,000,001
-        collect (fib i)))
+  (let ((i 1) (fibs '()))
+    (loop until (> (fib i) 4000000)
+          do (progn
+             (incf i)
+             (push (fib i) fibs)))
+    fibs))
 
 (reduce #'+ (remove-if-not #'evenp (fib-series)))
-
-
